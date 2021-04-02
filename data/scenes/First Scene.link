@@ -1,0 +1,247 @@
+{
+    "name": {
+        "value": "First Scene"
+    },
+    "scene_objects": [
+        {
+            "components": [
+                {
+                    "position": [
+                        11.859999656677246,
+                        0.5199999809265137,
+                        2.190000057220459
+                    ],
+                    "rotation": [
+                        -1.5499999523162842,
+                        0.0,
+                        -0.8600000143051147
+                    ],
+                    "scale": [
+                        0.10000000149011612,
+                        0.10000000149011612,
+                        0.10000000149011612
+                    ],
+                    "type": 0
+                },
+                {
+                    "albedo": {
+                        "default_value": [
+                            0.5,
+                            0.5,
+                            0.5
+                        ],
+                        "path": "models/cerberus/Textures/Cerberus_A.tga",
+                        "single_value_default": false
+                    },
+                    "ao": {
+                        "default_value": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ],
+                        "path": "",
+                        "single_value_default": true
+                    },
+                    "fragment": "glsl/pbr.fs",
+                    "metallic": {
+                        "default_value": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "path": "models/cerberus/Textures/Cerberus_M.tga",
+                        "single_value_default": true
+                    },
+                    "normal": {
+                        "default_value": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "path": "models/cerberus/Textures/Cerberus_N.tga",
+                        "single_value_default": false
+                    },
+                    "roughness": {
+                        "default_value": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "path": "models/cerberus/Textures/Cerberus_R.tga",
+                        "single_value_default": true
+                    },
+                    "type": 2,
+                    "vertex": "glsl/static.vs"
+                },
+                {
+                    "flip_uvs": false,
+                    "path": {
+                        "value": "models/cerberus/Cerberus_LP.FBX"
+                    },
+                    "type": 4
+                }
+            ],
+            "name": {
+                "value": "pbr"
+            }
+        },
+        {
+            "components": [
+                {
+                    "position": [
+                        2.5299999713897705,
+                        -0.25999999046325684,
+                        4.369999885559082
+                    ],
+                    "rotation": [
+                        0.0,
+                        4.599999904632568,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "type": 0
+                },
+                {
+                    "ambient": {
+                        "default_value": [
+                            0.5,
+                            0.5,
+                            0.5
+                        ],
+                        "path": "",
+                        "single_value_default": false
+                    },
+                    "diffuse": {
+                        "default_value": [
+                            0.5,
+                            0.5,
+                            0.5
+                        ],
+                        "path": "models/backpack/diffuse.jpg",
+                        "single_value_default": false
+                    },
+                    "fragment": "glsl/phong.fs",
+                    "normal": {
+                        "default_value": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "path": "",
+                        "single_value_default": false
+                    },
+                    "shininess": {
+                        "default_value": [
+                            32.0,
+                            32.0,
+                            32.0
+                        ],
+                        "path": "",
+                        "single_value_default": true
+                    },
+                    "specular": {
+                        "default_value": [
+                            0.5,
+                            0.5,
+                            0.5
+                        ],
+                        "path": "models/backpack/specular.jpg",
+                        "single_value_default": false
+                    },
+                    "type": 3,
+                    "vertex": "glsl/static.vs"
+                },
+                {
+                    "flip_uvs": true,
+                    "path": {
+                        "value": "models/backpack/backpack.obj"
+                    },
+                    "type": 4
+                }
+            ],
+            "name": {
+                "value": "backpack"
+            }
+        },
+        {
+            "components": [
+                {
+                    "position": [
+                        -3.0399999618530273,
+                        5.019999980926514,
+                        4.840000152587891
+                    ],
+                    "rotation": [
+                        0.0,
+                        0.0,
+                        0.0
+                    ],
+                    "scale": [
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "type": 0
+                },
+                {
+                    "color": {
+                        "name": "color",
+                        "type": 35665,
+                        "vec3": [
+                            0.9852941036224365,
+                            0.935705840587616,
+                            0.5071367025375366
+                        ]
+                    },
+                    "fragment": "glsl/solid_color.fs",
+                    "model": {
+                        "name": "model",
+                        "type": 35676
+                    },
+                    "projection": {
+                        "name": "projection",
+                        "type": 35676
+                    },
+                    "type": 1,
+                    "vertex": "glsl/static.vs",
+                    "view": {
+                        "name": "view",
+                        "type": 35676
+                    }
+                },
+                {
+                    "color": [
+                        0.9852941036224365,
+                        0.935705840587616,
+                        0.5071367025375366
+                    ],
+                    "cutoff": 12.0,
+                    "is_on": true,
+                    "light": {
+                        "constant": 1.0,
+                        "linear": 0.07000000029802322,
+                        "quadratic": 0.017000000923871994,
+                        "type": 1
+                    },
+                    "outer_cutoff": 15.0,
+                    "selected_attenuation": 5,
+                    "type": 5
+                },
+                {
+                    "flip_uvs": false,
+                    "path": {
+                        "value": ""
+                    },
+                    "type": 4
+                }
+            ],
+            "name": {
+                "value": "light"
+            }
+        }
+    ]
+}
