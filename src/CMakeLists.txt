@@ -16,6 +16,7 @@ set(LIBS
     OpenGL32
     ${FMT_LIB}
     ${IMGUI_LIB}
+    ${BULLET_LIBS_NAMES}
     assimp-vc142-mt)
 
 target_link_libraries(${LINK_PROJECT} ${LIBS})
@@ -24,6 +25,7 @@ target_include_directories(${LINK_PROJECT} PUBLIC
     ${LINK_INCLUDE_PATH}
     ${FMT_INCLUDE_PATH}
     ${IMGUI_INCLUDE_PATH}
+    ${BULLET_INCLUDE_PATH}
     ${CMAKE_SOURCE_DIR}/external/glew-2.1.0/include/
     ${CMAKE_SOURCE_DIR}/external/sdl/headers/SDL2-2.0.12/
     ${CMAKE_SOURCE_DIR}/external/sdl/headers/SDL2_image-2.0.5/
@@ -37,7 +39,11 @@ target_include_directories(${LINK_PROJECT} PUBLIC
     # ${CMAKE_SOURCE_DIR}/external/headers/asio-1.18.0/
     )
 
-set_target_properties(${LINK_PROJECT} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${LINK_EXE_PATH})
+target_compile_definitions(${LINK_PROJECT} PRIVATE -DBT_USE_DOUBLE_PRECISION)
+
+set_target_properties(${LINK_PROJECT} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${LINK_EXE_PATH}
+    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 target_compile_definitions(${LINK_PROJECT} PUBLIC LINK_DATA_ROOT="${CMAKE_SOURCE_DIR}/data/")
 target_compile_definitions(${LINK_PROJECT} PUBLIC LINK_RUNTIME_DATA_ROOT="${CMAKE_SOURCE_DIR}/runtime_data/")

@@ -148,7 +148,7 @@ namespace link
     SceneObject* Scene::create_object(const std::string& name)
     {
         SceneObject* new_obj = scene_objects.emplace_back(std::make_unique<SceneObject>(this, name)).get();
-        new_obj->refresh_dependances();
+        new_obj->refresh_dependencies();
         if (initialized)
         {
             new_obj->init();
@@ -239,6 +239,7 @@ namespace link
 
             if (LINK_GAME->state == Game::State::Stoped)
             {
+                //if (ImGui::IsMouseReleased(1) && ImGui::IsItemHovered())
                 if (ImGui::BeginPopupContextItem(name.value.c_str()))
                 {
                     if (EUtils::Button("Scene", "New Object", { -1, -1, -1 }, { 120, 0 }))

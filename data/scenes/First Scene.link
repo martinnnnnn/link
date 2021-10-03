@@ -198,20 +198,11 @@
                         ]
                     },
                     "fragment": "glsl/solid_color.fs",
-                    "model": {
-                        "name": "model",
-                        "type": 35676
-                    },
-                    "projection": {
-                        "name": "projection",
-                        "type": 35676
-                    },
+                    "model": null,
+                    "projection": null,
                     "type": 1,
                     "vertex": "glsl/static.vs",
-                    "view": {
-                        "name": "view",
-                        "type": 35676
-                    }
+                    "view": null
                 },
                 {
                     "color": [
@@ -241,6 +232,16 @@
             ],
             "name": {
                 "value": "light"
+            }
+        },
+        {
+            "components": [
+                {
+                    "type": 6
+                }
+            ],
+            "name": {
+                "value": "physixx"
             }
         }
     ]

@@ -36,6 +36,8 @@ namespace link
         void pause();
         void stop();
 
+        inline bool is_playing() const { return state == State::Playing || state == State::Paused; }
+
 #ifdef LINK_EDITOR_ENABLED
         void debug_update();
         void debug_draw();

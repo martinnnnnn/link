@@ -1,4 +1,4 @@
-#include <GL/glew.h>
+    #include <GL/glew.h>
 #include <gl/GL.h>
 // SDL
 #define SDL_MAIN_HANDLED
@@ -38,6 +38,7 @@
 #include "gfx/mesh.hpp"
 #include "gfx/mesh.hpp"
 #include "gfx/renderer.hpp"
+#include "physics/physics.hpp"
 #include "scene/scene.hpp"
 #include "scene/scene_object.hpp"
 #include "scene/game.hpp"
@@ -51,7 +52,7 @@
 #include "voxel/surface_extractor.hpp"
 
 #include <imgui.h>
-#include <backends/imgui_impl_sdl.h>
+
 
 using namespace link;
 
@@ -64,6 +65,8 @@ void debug_draw() {}
 #endif
 
 
+//btAlignedObjectArray<btCollisionShape*> collisionShapes;
+
 int main()
 {
     LINK_TIME->start();
@@ -75,7 +78,10 @@ int main()
     LINK_EDITOR->init();
     LINK_DEBUG->init();
 
-    LINK_GAME->init(/*std::string(LINK_DATA_ROOT) + "scenes/"*/"");
+    LINK_PHYSICS->init();
+
+    LINK_GAME->init(std::string(LINK_DATA_ROOT) + "scenes/");
+    //LINK_GAME->init("");
 
 #ifdef LINK_EDITOR_ENABLED
     LINK_RENDERER->to_framebuffer({ 1980, 1080 });
@@ -88,17 +94,17 @@ int main()
     //height_map.init_from_diamond_square(200);
     //height_map.init_from_simplex({ 512, 512, 512 });
 
-    Shader shader;
-    shader.load(std::string(LINK_DATA_ROOT) + "glsl/static.vs", std::string(LINK_DATA_ROOT) + "glsl/solid_color.fs");
-    shader.use();
-    shader.bind_ub("Camera", BindingPoint::CAMERA);
+    //Shader shader;
+    //shader.load(std::string(LINK_DATA_ROOT) + "glsl/static.vs", std::string(LINK_DATA_ROOT) + "glsl/solid_color.fs");
+    //shader.use();
+    //shader.bind_ub("Camera", BindingPoint::CAMERA);
 
-    VolumeData32* data = new VolumeData32();
+    //VolumeData32* data = new VolumeData32();
 
-    for (u64 i = 0; i < VolumeSize<DEFAULT_DATA_SIZE>::cubed; ++i)
-    {
-        SurfaceExtractor::transvoxel(data, data->chunks[i].get());
-    }
+    //for (u64 i = 0; i < VolumeSize<DEFAULT_DATA_SIZE>::cubed; ++i)
+    //{
+    //    SurfaceExtractor::transvoxel(data, data->chunks[i].get());
+    //}
 
     bool done = false;
     while (!done)
@@ -107,60 +113,14 @@ int main()
         LINK_INPUT->update();
         LINK_INPUT->mouse.wheel = MouseWheel::NONE;
 
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            LINK_EDITOR->process_events(&event);
-
-            switch (event.type)
-            {
-            case SDL_QUIT:
-                {
-                    done = true;
-                    break;
-                }
-            case SDL_WINDOWEVENT:
-                {
-                    switch (event.window.event)
-                    {
-                    case SDL_WINDOWEVENT_CLOSE:
-                    {
-                        if (event.window.windowID == SDL_GetWindowID(LINK_WINDOW->window))
-                        {
-                            done = true;
-                        }
-                        break;
-                    }
-                    case SDL_WINDOWEVENT_RESIZED:
-                    {
-                        LINK_WINDOW->on_resize({ event.window.data1, event.window.data2 });
-                        break;
-                    }
-                    case SDL_WINDOWEVENT_MOVED:
-                    {
-                        LINK_WINDOW->on_move({ event.window.data1, event.window.data2 });
-                        break;
-                    }
-                    }
-                    break;
-                }
-            case SDL_MOUSEWHEEL:
-                {
-                    if (event.wheel.y != 0)
-                    {
-                        LINK_INPUT->mouse.wheel = MouseWheel(event.wheel.y);
-                    }
-                    break;
-                }
-            }
-        }
+        done = LINK_WINDOW->poll_events();
 
         if (LINK_INPUT->is_down(SDL_SCANCODE_ESCAPE))
         {
             done = true;
         }
 
-        if (LINK_INPUT->mouse.down(MouseButton::RIGHT))
+        if (LINK_INPUT->mouse.down(MouseButton::RIGHT) && LINK_INPUT->mouse.is_ingame())
         {
             SDL_SetRelativeMouseMode(SDL_TRUE);
             LINK_RENDERER->main_camera->update();
@@ -189,13 +149,13 @@ int main()
         LINK_DEBUG->cube(glm::vec3(-5, -5, 0), 5, 5, glm::vec3(1, 0, 0));
         LINK_DEBUG->draw();
 
-        for (u64 i = 0; i < VolumeSize<DEFAULT_DATA_SIZE>::cubed; ++i)
-        {
-            shader.use();
-            shader.set("color", glm::vec3{ 1.0, 0, 0 });
-            shader.set("model", glm::translate(glm::mat4(1.0f), glm::vec3(data->chunks[i]->position) * 32.f));
-            data->chunks[i]->draw();
-        }
+        //for (u64 i = 0; i < VolumeSize<DEFAULT_DATA_SIZE>::cubed; ++i)
+        //{
+        //    shader.use();
+        //    shader.set("color", glm::vec3{ 1.0, 0, 0 });
+        //    shader.set("model", glm::translate(glm::mat4(1.0f), glm::vec3(data->chunks[i]->position) * 32.f));
+        //    data->chunks[i]->draw();
+        //}
 
         //height_map.draw();
 
@@ -209,6 +169,8 @@ int main()
         SDL_GL_SwapWindow(LINK_WINDOW->window);
     }
 
+    LINK_PHYSICS->shutdown();
+
     LINK_EDITOR->shutdown();
     LINK_WINDOW->shutdown();
 
@@ -219,7 +181,7 @@ int main()
 #ifdef LINK_EDITOR_ENABLED
 void debug_draw()
 {
-    static EString scene_create_name("Scene Name");
+    static EString scene_create_name("Scene creation", "Scene Name");
 
     static bool demo_open = false;
 

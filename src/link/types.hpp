@@ -27,3 +27,5 @@ constexpr u32 U32_INVALID = UINT_MAX;
 constexpr u64 U64_INVALID = ULLONG_MAX;
 constexpr f32 F32_MIN = std::numeric_limits<f32>::lowest();
 constexpr f32 F32_MAX = std::numeric_limits<f32>::max();
+constexpr f64 F64_MIN = std::numeric_limits<f64>::lowest();
+constexpr f64 F64_MAX = std::numeric_limits<f64>::max();

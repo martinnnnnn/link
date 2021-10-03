@@ -20,6 +20,9 @@ target_include_directories(${IMGUI_LIB} PUBLIC
     ${CMAKE_SOURCE_DIR}/external/sdl/headers/SDL2-2.0.12/
     ${CMAKE_SOURCE_DIR}/external/glew-2.1.0/include/)
 
-set_target_properties(${IMGUI_LIB} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${IMGUI_LIB_PATH})
+set_target_properties(${IMGUI_LIB} PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY ${IMGUI_LIB_PATH}
+    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
 target_include_directories(${IMGUI_LIB} PUBLIC
     ${IMGUI_INCLUDE_PATH})

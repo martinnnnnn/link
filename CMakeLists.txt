@@ -7,6 +7,9 @@ message(STATUS "project name : ${PROJECT_NAME}")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17 /MP /GR-")
+
+
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(CMAKE_SUPPRESS_REGENERATION true)
 
@@ -26,12 +29,41 @@ set(IMGUI_LIB imgui_lib)
 set(IMGUI_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/external/imgui-docking-732cd83/" "${CMAKE_SOURCE_DIR}/external/imgui-docking-732cd83/misc/cpp/")
 set(IMGUI_LIB_PATH "${CMAKE_SOURCE_DIR}/bin/${IMGUI_LIB}")
 
+set(BULLET_LIBS_NAMES
+    # Bullet2FileLoader
+    # Bullet3Collision
+    # Bullet3Common
+    # Bullet3Dynamics
+    # Bullet3Geometry
+    # Bullet3OpenCL_clew
+    # BulletCollision
+    # BulletDynamics
+    # BulletFileLoader
+    # BulletInverseDynamics
+    # BulletInverseDynamicsUtils
+    # BulletRobotics
+    # BulletRoboticsGUI
+    # BulletSoftBody
+    # BulletWorldImporter
+    # BulletXmlWorldImporter
+    # BussIK
+    # clsocket
+    # ConvexDecomposition
+    BulletDynamics_Debug BulletCollision_Debug LinearMath_Debug
+    )
+set(BULLET_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/external/bullet/include/")
+# set(BULLET_LIB_PATH "${CMAKE_SOURCE_DIR}/external/bullet/libs/Release")
+set(BULLET_LIB_PATH "${CMAKE_SOURCE_DIR}/external/bullet/libs/Debug")
+
+
+
 link_directories(
     ${CMAKE_SOURCE_DIR}/external/glew-2.1.0/lib/Release/x64/
     ${CMAKE_SOURCE_DIR}/external/opengl/
     ${CMAKE_SOURCE_DIR}/external/sdl/libs/
     ${FMT_LIB_PATH}
     ${IMGUI_LIB_PATH}
+    ${BULLET_LIB_PATH}
     ${CMAKE_SOURCE_DIR}/external/assimp-5.0.1/BINARIES/x64/code/Release)
 
 #### GROUP CREATION ####
@@ -53,7 +85,3 @@ endmacro()
 #### ADDING SOURCE ####
 add_subdirectory(external)
 add_subdirectory(src)
-
-
-
-

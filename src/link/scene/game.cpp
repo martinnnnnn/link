@@ -7,6 +7,7 @@
 #include "link/string_utils.hpp"
 #include "scene.hpp"
 #include "link/file_system.hpp"
+#include "link/physics/physics.hpp"
 
 namespace link
 {
@@ -67,6 +68,7 @@ namespace link
         {
             for (auto& scene : scenes)
             {
+                scene->save();
                 scene->init();
             }
             state = State::Playing;
@@ -85,12 +87,12 @@ namespace link
             {
                 scene->update();
             }
+            LINK_PHYSICS->update();
         }
     }
 
     void Game::pause()
     {
-        fmt::print("pause\n");
         if (state == State::Playing)
         {
             state = State::Paused;
@@ -99,7 +101,6 @@ namespace link
 
     void Game::stop()
     {
-        fmt::print("stop\n");
         if (state == State::Playing || state == State::Paused)
         {
             state = State::Stoped;
