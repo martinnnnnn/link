@@ -45,8 +45,7 @@ set_target_properties(${LINK_PROJECT} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${LINK_EXE_PATH}
     MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
-target_compile_definitions(${LINK_PROJECT} PUBLIC LINK_DATA_ROOT="${CMAKE_SOURCE_DIR}/data/")
-target_compile_definitions(${LINK_PROJECT} PUBLIC LINK_RUNTIME_DATA_ROOT="${CMAKE_SOURCE_DIR}/runtime_data/")
+target_compile_definitions(${LINK_PROJECT} PUBLIC LINK_PROJ_DATA_ROOT="${CMAKE_SOURCE_DIR}/data/")
 
 GroupSources(${CMAKE_CURRENT_SOURCE_DIR} link)
 

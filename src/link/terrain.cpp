@@ -5,6 +5,7 @@
 #include <fmt/ostream.h>
 #include <stb_image.h>
 
+#include "link/data_root.hpp"
 #include "link/data_system.hpp"
 #include "link/timer.hpp"
 #include "link/gfx/renderer.hpp"

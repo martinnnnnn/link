@@ -50,18 +50,18 @@
 #include "scene/components/c_light_source.hpp"
 #include "voxel/volume_data.hpp"
 #include "voxel/surface_extractor.hpp"
+#include "data_root.hpp"
 
 #include <imgui.h>
 
 
 using namespace link;
 
-FileSystem file_system;
 
 #ifdef LINK_EDITOR_ENABLED
-void debug_draw();
+void debug_draw(FileSystem* file_system);
 #else
-void debug_draw() {}
+void debug_draw(FileSystem* file_system) {}
 #endif
 
 
@@ -69,10 +69,24 @@ void debug_draw() {}
 
 int main()
 {
+    if (!std::filesystem::is_directory(LINK_DATA_ROOT))
+    {
+        fmt::print("LINK_PATH_ROOT is not correct. Check that data directory is at the right location,\nand that the value in data_root.hpp is correct.\nCurrent value: {0}\nPress enter to exit...", LINK_DATA_ROOT);
+        getchar();
+        return 1;
+    }
+    else
+    {
+
+        fmt::print("LINK_PATH_ROOT is not correct. Check that data directory is at the right location,\nand that the value in data_root.hpp is correct.\nCurrent value: {0}", LINK_DATA_ROOT);
+    }
+
+    std::string data_root = std::string(LINK_DATA_ROOT);
     LINK_TIME->start();
     CRandom::initialize();
 
-    file_system.init(LINK_DATA_ROOT);
+    FileSystem file_system;
+    file_system.init(data_root);
 
     LINK_WINDOW->init({ 1980, 1080 });
     LINK_EDITOR->init();
@@ -80,7 +94,7 @@ int main()
 
     LINK_PHYSICS->init();
 
-    LINK_GAME->init(std::string(LINK_DATA_ROOT) + "scenes/");
+    LINK_GAME->init(data_root + "scenes/");
     //LINK_GAME->init("");
 
 #ifdef LINK_EDITOR_ENABLED
@@ -140,7 +154,7 @@ int main()
 
         LINK_GAME->debug_draw();
 
-        debug_draw();
+        debug_draw(&file_system);
 
         // ---------------------------------
         // DRAWING
@@ -179,7 +193,7 @@ int main()
 
 
 #ifdef LINK_EDITOR_ENABLED
-void debug_draw()
+void debug_draw(FileSystem* file_system)
 {
     static EString scene_create_name("Scene creation", "Scene Name");
 
@@ -187,7 +201,7 @@ void debug_draw()
 
     if (ImGui::Begin("Data Explorer"))
     {
-        file_system.debug_draw();
+        file_system->debug_draw();
         ImGui::End();
     }
 

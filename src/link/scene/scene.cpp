@@ -8,6 +8,7 @@
 
 #include "scene_object.hpp"
 #include "component.hpp"
+#include "link/data_root.hpp"
 #include "link/gfx/camera.hpp"
 #include "link/gfx/renderer.hpp"
 #include "game.hpp"

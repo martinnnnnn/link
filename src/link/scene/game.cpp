@@ -45,6 +45,7 @@ namespace link
         }
 
         path = p;
+
         for (const std::filesystem::directory_entry& p : std::filesystem::directory_iterator(path))
         {
             // clean path

@@ -63,7 +63,7 @@ namespace link
     bool File::write(const std::string& path, u8* content, u32 size)
     {
         FILE* file;
-        if (fopen_s(&file, path.c_str(), "wb") == 0)
+        if (fopen_s(&file, path.c_str(), "wb") == 0 && file != 0)
         {
             fwrite(content, sizeof(u8), size, file);
             fclose(file);
@@ -74,16 +74,16 @@ namespace link
 
     i32 File::read(const std::string& path, u8** content)
     {
-        FILE* f;
-        if (fopen_s(&f, path.c_str(), "rb") == 0)
+        FILE* file;
+        if (fopen_s(&file, path.c_str(), "rb") == 0 && file != 0)
         {
-            fseek(f, 0, SEEK_END);
-            u32 fsize = ftell(f);
-            fseek(f, 0, SEEK_SET);
+            fseek(file, 0, SEEK_END);
+            u64 fsize = ftell(file);
+            fseek(file, 0, SEEK_SET);
 
             *content = (u8*)malloc(fsize + 1);
-            fread(*content, 1, fsize, f);
-            fclose(f);
+            fread(*content, 1, fsize, file);
+            fclose(file);
 
             (*content)[fsize] = 0;
             return fsize;
@@ -93,23 +93,23 @@ namespace link
 
     void File::read(const std::string& path, std::string& content)
     {
-        FILE* f;
-        if (fopen_s(&f, path.c_str(), "rb") == 0)
+        FILE* file;
+        if (fopen_s(&file, path.c_str(), "rb") == 0 && file != 0)
         {
-            fseek(f, 0, SEEK_END);
-            u32 fsize = ftell(f);
-            fseek(f, 0, SEEK_SET);
+            fseek(file, 0, SEEK_END);
+            u32 fsize = ftell(file);
+            fseek(file, 0, SEEK_SET);
 
             content.resize(fsize, '\0');
-            fread(&content[0], sizeof(char), (size_t)fsize, f);
-            fclose(f);
+            fread(&content[0], sizeof(char), (size_t)fsize, file);
+            fclose(file);
         }
     }
 
     bool File::exists(const std::string& name)
     {
         FILE* file = NULL;
-        if (fopen_s(&file, name.c_str(), "r") == 0)
+        if (fopen_s(&file, name.c_str(), "r") == 0 && file != 0)
         {
             fclose(file);
             return true;
