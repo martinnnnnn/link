@@ -3,7 +3,7 @@
 Toy game engine capable of:
   - Loading, compiling and runnning shaders (Bling-phong, PBR)
   - Loading and showing models
-  - Basic scene managment (component based)
+  - Basic scene management (component based), using JSON files for saving
   - Basic light system
   - Started integrating Bullet for physics
 

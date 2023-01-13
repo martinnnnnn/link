@@ -6,9 +6,7 @@ project(link)
 message(STATUS "project name : ${PROJECT_NAME}")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17 /MP /GR-")
-
-
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++latest /MP /GR-")
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(CMAKE_SUPPRESS_REGENERATION true)
@@ -24,6 +22,10 @@ set(LINK_EXE_PATH "${CMAKE_SOURCE_DIR}/bin/${LINK_PROJECT}")
 set(FMT_LIB fmt_lib)
 set(FMT_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/external/fmt/include/")
 set(FMT_LIB_PATH "${CMAKE_SOURCE_DIR}/bin/${FMT_LIB}")
+
+set(CSG_LIB csg_lib)
+set(CSG_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/external/csg/include/")
+set(CSG_LIB_PATH "${CMAKE_SOURCE_DIR}/bin/${CSG_LIB}")
 
 set(IMGUI_LIB imgui_lib)
 set(IMGUI_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/external/imgui-docking-732cd83/" "${CMAKE_SOURCE_DIR}/external/imgui-docking-732cd83/misc/cpp/")

@@ -71,12 +71,12 @@ namespace link
     template <class T>
     T* rtti_dynamic_cast(RttiObject* obj)
     {
-        return obj && obj->is_derived(T::TYPE) ? (T*)obj : 0;
+        return obj && obj->is_derived_of(T::TYPE) ? (T*)obj : 0;
     }
 
     template <class T>
     const T* rtti_dynamic_cast(const RttiObject* obj)
     {
-        return obj && obj->is_derived(T::TYPE) ? (const T*)obj : 0;
+        return obj && obj->is_derived_of(T::TYPE) ? (const T*)obj : 0;
     }
 }

@@ -1,12 +1,9 @@
 file(GLOB_RECURSE LINK_SOURCE_FILES "*.h" "*.hpp" "*.cpp" "*.inl")
 
 
-# add_executable(${LINK_PROJECT} ${LINK_SOURCE_FILES} ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/external/headers/fmt/src/format.cc ${CMAKE_SOURCE_DIR}/external/headers/fmt/src/os.cc)
 add_executable(${LINK_PROJECT} ${LINK_SOURCE_FILES} ${CMAKE_SOURCE_DIR})
 
-# add_dependencies(${LINK_PROJECT} ${FMT_LIB})
-
-set(LIBS
+target_link_libraries(${LINK_PROJECT}
     SDL2
     SDL2main
     SDL2_image
@@ -15,15 +12,16 @@ set(LIBS
     glew32
     OpenGL32
     ${FMT_LIB}
+    ${CSG_LIB}
     ${IMGUI_LIB}
     ${BULLET_LIBS_NAMES}
-    assimp-vc142-mt)
-
-target_link_libraries(${LINK_PROJECT} ${LIBS})
+    assimp-vc142-mt
+)
 
 target_include_directories(${LINK_PROJECT} PUBLIC
     ${LINK_INCLUDE_PATH}
     ${FMT_INCLUDE_PATH}
+    ${CSG_INCLUDE_PATH}
     ${IMGUI_INCLUDE_PATH}
     ${BULLET_INCLUDE_PATH}
     ${CMAKE_SOURCE_DIR}/external/glew-2.1.0/include/
